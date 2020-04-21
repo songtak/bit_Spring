@@ -78,20 +78,27 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="join.html">join</a></li>
-      <li><a id="a-second" href="#">Paris</a></li>
-      <li><a id="a-third" href="#">Tokyo</a></li>
+      <li><a id="a-first" href="join.html">JOIN</a></li>
+      <li><a id="a-second" href="">LOGIN</a></li>
+      <li><a id="a-third" href="#">...</a></li>
     </ul>
   </nav>
   
   <article>
    <form action="#">
-   	<label>ID </label> <br>
-   	<input id = "userid" type="text"> <br>
-   	<label>PASSWORD</label><br>
-   	<input id = "passwd"type="text"><br>
-   	<input id="login-button" type="button" value="로그인">
+   	<label>NAME </label> <br>
+   	<input type="text"> <br>
+   	<label>ID</label><br>
+   	<input type="text"><br>
+    <label>PASSWORD</label><br>
+   	<input type="text"><br>
+   	<label>SSN</label><br>
+   	<input type="text"><br>
+   	<label>ADRRESS</label><br>
+   	<input type="text"><br>
+   	<input id="login-button" type="button" value="회원가입">
    	<input id="cancel-button" type="button" value="취소">
+
    	
    </form>
   </article>
@@ -102,30 +109,19 @@ footer {
 </footer>
 <script type="text/javascript">
 $('#a-first').click(function(){
-	alert('회원가입')
+	alert('Join 클릭')
 })
 $('#a-second').click(function(){
-	alert('Tokyo 클릭')
+	alert('Login 클릭')
 })
 $('#a-third').click(function(){
-	alert('London 클릭')
+	alert('... 클릭')
 })
 $('#login-button').click(function(){
-$.ajax({
-	url:'/member/login',
-	type:'post',
-	data:{userid: $('#userid').val(),
-		passwd $('#passwd').val()},
-	dataType:'json',
-	contentType:'application/json',
-	success:'',
-	error:''
-})
-	
+	alert('로그인 버튼 클릭')
 })
 $('#cancel-button').click(function(){
 	alert('취소 버튼 클릭')
-
 })
 </script>
 </body>
