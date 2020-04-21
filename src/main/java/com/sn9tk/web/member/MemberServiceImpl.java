@@ -1,8 +1,16 @@
 package com.sn9tk.web.member;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemberServiceImpl implements MemberService {
     private Member[] members;
     private int count;
+    
+    public MemberServiceImpl() {
+    	members = new Member[5];
+    	count=0;
+	}
 	
 	@Override
 	public void add(Member member) {
@@ -58,7 +66,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean login(Member member) {
-		return true;
+		boolean ok = false;
+		for(int i=0; i<count; i++) {
+			if(member.getUserid().equals(members[i].getUserid())
+					&&
+					member.getPasswd().equals(members[i].getPasswd())) {
+				members[i] = members[count-1];
+				members[count-1]=null;
+				count--;
+			}
+		}
+		return ok;
 	}
 
 }

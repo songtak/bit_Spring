@@ -1,5 +1,6 @@
 package com.sn9tk.web.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,23 +9,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sn9tk.web.util.Messenger;
+
 @RestController //url을 컨트롤하는 컨트롤러
 @RequestMapping("/member") 
 public class MemberController {
-	public MemberService memberService;
+	@Autowired MemberService memberService;
+
 	
 	@PostMapping("/join")
-	public Member add(@RequestBody Member member) {
-		System.out.println(">>>>");
-		System.out.println(member.toString());
-		memberService = new MemberServiceImpl();
+	public Messenger add(@RequestBody Member member) {
+		int current = memberService.count();
 		memberService.add(member);
-		return member; //이 안에서 데이터 값을 받기 위해
+		return (memberService.count()==(current+1))? Messenger.SUCCESS : Messenger.FAIL;
 	}
 	@PostMapping("/login")
-	public String login(@RequestBody Member member) {
-		memberService = new MemberServiceImpl();
-		return (memberService.login(member))? "SUCCESS" : "FAIL";
+	public Messenger login(@RequestBody Member member) {
+		return (memberService.login(member))? Messenger.SUCCESS : Messenger.FAIL;
 	}
 	@GetMapping("/list")
 	public Member[] list() {

@@ -8,20 +8,17 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Style the header */
 header {
-  background-color: #666;
+  background-color: #866;
   padding: 30px;
   text-align: center;
   font-size: 35px;
   color: white;
 }
-
 /* Create two columns/boxes that floats next to each other */
 nav {
   float: left;
@@ -30,28 +27,24 @@ nav {
   background: #ccc;
   padding: 20px;
 }
-
 /* Style the list inside the menu */
 nav ul {
   list-style-type: none;
   padding: 0;
 }
-
 article {
   float: left;
   padding: 20px;
   width: 70%;
-  background-color: #f1f1f1;
+  background-color: #F1F1F1;
   height: 300px; /* only for demonstration, should be removed */
 }
-
 /* Clear floats after the columns */
 section:after {
   content: "";
   display: table;
   clear: both;
 }
-
 /* Style the footer */
 footer {
   background-color: #777;
@@ -59,7 +52,6 @@ footer {
   text-align: center;
   color: white;
 }
-
 /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
 @media (max-width: 600px) {
   nav, article {
@@ -70,70 +62,70 @@ footer {
 </style>
 </head>
 <body>
-
-<header>
-  <h2>로그인</h2>
-</header>
-
+<h2> 회원가입 </h2>
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="member/join.html">join</a></li>
-      <li><a id="a-second" href="#">Paris</a></li>
-      <li><a id="a-third" href="#">Tokyo</a></li>
+      <li><a id="a-first" href="#">Join</a></li>
+      <li><a id="a-second" href="../index.html">Login</a></li>
+      <li><a id="a-third" href="#">...</a></li>
     </ul>
   </nav>
-  
   <article>
    <form action="#">
-   	<label>ID </label> <br>
-   	<input id = "userid" type="text"> <br>
+   	<label>NAME</label><br>
+   	<input id = "name" type="text" /> <br>
+    <label>ID </label> <br>
+   	<input id = "userid" type="text"/> <br>
    	<label>PASSWORD</label><br>
-   	<input id = "passwd"type="text"><br>
-   	<input id="login-button" type="button" value="로그인">
+   	<input id ="passwd" type="text"/> <br>
+   	<label>SSN</label><br>
+   	<input id ="ssn" type="text"/> <br>
+   	<label>Address</label><br>
+   	<input id = "address" type="text"><br>
+   	<input id="join-button" type="button" value="회원가입">
    	<input id="cancel-button" type="button" value="취소">
    	
    </form>
   </article>
 </section>
-
 <footer>
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
 $('#a-first').click(function(){
-})
-$('#a-second').click(function(){
-	alert('Tokyo 클릭')
+	alert('회원가입')
 })
 $('#a-third').click(function(){
-	alert('London 클릭')
+	alert('join')
 })
-$('#login-button').click(function(){
-	alert('login click')
-$.ajax({
-	url:'/member/login',
-	type:'post',
-	data:JSON.stringify({userid: $('#userid').val(),
-		passwd: $('#passwd').val()}),
-	dataType:'json',
-	contentType:'application/json',
-	success : function(message){
-		if(message === 'SUCCESS'){
-			location.href="grade/register.html"
-		}else{
-			alert('다시 로그인 해주세요.')
-			location.href = "index.html"
+$('#join-button').click(function(){
+	let m = {}
+	$.ajax({
+		url: '/member/join',
+		type: 'post',
+		data: JSON.stringify({
+			name:$('#name').val(),
+					userid:$('#userid').val(),
+					passwd:$('#passwd').val(),
+					ssn:$('#ssn').val(),
+					address:$('#address').val()}),
+		dataType: 'json',
+		contentType:'application/json',
+		success: function(message){
+		    if(message === 'SUCCESS'){ //==는 인트값에 비교 ===는 인스턴스 값에 비교
+		    	location.href = '../index.html'
+		    }else{
+		    	location.href="join.html"
+		    }
+		},
+		error:function(){
+			alert('네트워킹 실패')
 		}
-	},
-	error:function(){
-		alert('Networking error')
-	}
-})
-	
+	})
 })
 $('#cancel-button').click(function(){
-
+	alert('취소 버튼 클릭')
 })
 </script>
 </body>
