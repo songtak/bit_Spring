@@ -78,9 +78,8 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="member/join.html">join</a></li>
-      <li><a id="a-second" href="#">Paris</a></li>
-      <li><a id="a-third" href="#">Tokyo</a></li>
+      <li><a id="join_a" >join</a></li>
+      <li><a id="login_a" >login</a></li>
     </ul>
   </nav>
   
@@ -90,8 +89,9 @@ footer {
    	<input id = "userid" type="text"> <br>
    	<label>PASSWORD</label><br>
    	<input id = "passwd"type="text"><br>
-   	<input id="login-button" type="button" value="로그인">
-   	<input id="cancel-button" type="button" value="취소">
+   	<input id="login_button" type="button" value="로그인">
+   	<input id="cancel_button" type="button" value="취소">
+
    	
    </form>
   </article>
@@ -100,17 +100,22 @@ footer {
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-$('#a-first').click(function(){
+<script>
+$('#join_a')
+    .css('cursor','pointer')
+    .click(e=>{
+	e.preventDefault()
+	location.href="member/join.html"
+	
 })
-$('#a-second').click(function(){
-	alert('Tokyo 클릭')
+$('#login_a')
+    .css('cursor','pointer')
+    .click(e=>{
+	e.preventDefault()
+	location.href="index.html"
 })
-$('#a-third').click(function(){
-	alert('London 클릭')
-})
-$('#login-button').click(function(){
-	alert('login click')
+$('#login_button').click(e =>{
+	e.preventDefault()
 $.ajax({
 	url:'/member/login',
 	type:'post',
@@ -118,7 +123,7 @@ $.ajax({
 		passwd: $('#passwd').val()}),
 	dataType:'json',
 	contentType:'application/json',
-	success : function(message){
+	success : d =>{
 		if(message === 'SUCCESS'){
 			location.href="grade/register.html"
 		}else{
@@ -126,13 +131,14 @@ $.ajax({
 			location.href = "index.html"
 		}
 	},
-	error:function(){
-		alert('Networking error')
+	error: (request,status,error)=>{
+		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
 	}
 })
 	
 })
-$('#cancel-button').click(function(){
+
+$('#cancel_button').click(function(){
 
 })
 </script>

@@ -90,7 +90,28 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
+$('#register-button').click(e => {
+	e.preventDefault()
+$.ajax({
+	url:'(/grade/register)',
+	type:'post',
+	data:JSON.stringify({
+		userid:$('#userid').val(),
+		korean:$('#korean').val(),
+		english:$('#english').val(),
+		math:$('#math').val(),
+		java:$('#java').val()
+	}),
+	dataType:'json',
+	contentType:'application/json',
+    succes:(){},
+    error:(){}
+})
 
+$('#show-button').click(e => {
+	e.preventDefault()
+	
+	})
 
 </script>
 </body>

@@ -62,7 +62,7 @@ footer {
 </style>
 </head>
 <body>
-<h2> 성적 등록 </h2>
+<h2> 점수 등록 </h2>
 <section>
   <nav>
     <ul>
@@ -80,16 +80,55 @@ footer {
    	<input id = "math" type="text"><br>
    	<label>JAVA</label><br>
    	<input id = "java" type="text"><br>
-   	<input id="register-button" type="button" value="점수등록">
-   	
+   	<input id="register_button" type="button" value="점수등록">
+   	<input id="credit_button" type="button" value="학점확인">
    </form>
+      	<div id="result"></div>
   </article>
 </section>
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-
+<script>
+$('#register_button').click(e =>{
+	e.preventDefault() //디폴트를 막아라 왜? 람다가 오류나니께
+	$('#result').html('')
+			$.ajax({
+		url:'/grade/register',
+		type:'post',
+		data:JSON.stringify({
+			useid: $('#userid').val(),
+			korean: $('#korean').val(),
+			english: $('#english').val(),
+			math: $('#math').val(),
+			java: $('#java').val()}),
+		dataType:'json',
+		contentType:'application/json',
+		
+		success: d=>{
+			alert(d)
+			
+		},
+		error: (req, x, err)=>{
+			alert(req.status+"\n"+req.responseText+"\n"+err)
+		}
+	})
+})
+$('#credit_button').click(e=>{
+	e.preventDefault()
+	$.ajax({
+		url : '/grade/report/'+$('#userid').val(),
+		type : 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success : d => {
+			$('#result').html('<h3>학점 : '+d+'</h3>')
+		},
+		error : (req, x, err) =>{
+			alert(req.status+'\n'+req.responseText+'\n'+err)
+		}
+	})
+})
 
 </script>
 </body>

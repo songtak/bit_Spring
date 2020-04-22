@@ -62,65 +62,64 @@ footer {
 </style>
 </head>
 <body>
-<h2> 회원가입 </h2>
+<h2> 로또 구매 </h2>
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">Join</a></li>
-      <li><a id="a-second" href="../index.html">Login</a></li>
-      <li><a id="a-third" href="#">...</a></li>
     </ul>
   </nav>
   <article>
    <form action="#">
-   	<label>NAME</label><br>
-   	<input id = "name" type="text" /> <br>
     <label>ID </label> <br>
    	<input id = "userid" type="text"/> <br>
-   	<label>PASSWORD</label><br>
-   	<input id ="passwd" type="text"/> <br>
-   	<label>SSN</label><br>
-   	<input id ="ssn" type="text"/> <br>
-   	<label>Address</label><br>
-   	<input id = "address" type="text"><br>
-   	<input id="join-button" type="button" value="회원가입">
-   	<input id="cancel-button" type="button" value="취소">
-   	
+   	<label>로또번호 입력(,로 분리해 주세요.)</label><br>
+   	<input id ="number" type="text"/> <br>
+   	<input id="register_button" type="button" value="자동 번호 확인">
+   	<input id="result_button" type="button" value="결과">
    </form>
+      	<div id="result"></div>
   </article>
 </section>
 <footer>
   <p>Footer</p>
 </footer>
 <script>
-$('#join-button').click(e =>{
-	e.preventDefault()
-	$.ajax({
-		url: '/member/join',
-		type: 'post',
-		data: JSON.stringify({
-			name:$('#name').val(),
-					userid:$('#userid').val(),
-					passwd:$('#passwd').val(),
-					ssn:$('#ssn').val(),
-					address:$('#address').val()}),
-		dataType: 'json',
+$('#register_button').click(e =>{
+	e.preventDefault() 
+	$('#result').html('')
+			$.ajax({
+		url:'/lotto/number',
+		type:'post',
+		data:JSON.stringify({
+			number: $('#number').val()
+		dataType:'json',
 		contentType:'application/json',
-		success: d=> {
-		    if(d === 'SUCCESS'){ //==는 인트값에 비교 ===는 인스턴스 값에 비교
-		    	location.href = "../index.html"
-		    }else{
-		    	location.href="join.html"
-		    }
+		
+		success: d=>{
+			alert(d)
+			
 		},
-		error: (request,status,error)=>{
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+		error: (req, x, err)=>{
+			alert(req.status+"\n"+req.responseText+"\n"+err)
 		}
 	})
 })
-$('#cancel-button').click(e => {
-	alert('취소 버튼 클릭')
+$('#result_button').click(e=>{
+	e.preventDefault()
+	$.ajax({
+		url : '/lotto/check/'+$('#userid').val(),
+		type : 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success : d => {
+			$('#result').html('<h3>학점 : '+d+'</h3>')
+		},
+		error : (req, x, err) =>{
+			alert(req.status+'\n'+req.responseText+'\n'+err)
+		}
+	})
 })
+
 </script>
 </body>
 </html>
