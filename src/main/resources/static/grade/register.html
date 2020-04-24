@@ -97,7 +97,7 @@ $('#register_button').click(e =>{
 		url:'/grade/register',
 		type:'post',
 		data:JSON.stringify({
-			useid: $('#userid').val(),
+			userid: $('#userid').val(),
 			korean: $('#korean').val(),
 			english: $('#english').val(),
 			math: $('#math').val(),
@@ -107,7 +107,6 @@ $('#register_button').click(e =>{
 		
 		success: d=>{
 			alert(d)
-			
 		},
 		error: (req, x, err)=>{
 			alert(req.status+"\n"+req.responseText+"\n"+err)

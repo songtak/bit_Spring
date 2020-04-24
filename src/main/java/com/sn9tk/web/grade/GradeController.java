@@ -17,8 +17,8 @@ import com.sn9tk.web.util.Messenger;
 public class GradeController {
 	@Autowired GradeService gradeService;
 	
-	@PostMapping("/register")
-	public Messenger register(@RequestBody Grade grade) {
+	@PostMapping("/register") 
+	public Messenger register(@RequestBody Grade grade) { //매핑타입
 		System.out.println("register 들어옴!!");
 		Messenger messenger = null;
 		int current = gradeService.count();
@@ -31,6 +31,13 @@ public class GradeController {
          //위에 줄 ()안은 path고 {}은 변수
 	public Credit report(@PathVariable String userid) {
 		return  gradeService.detail(userid);
+	}
+	
+	@PostMapping("/credit/{userid}")
+	public Messenger report(@RequestBody Grade grade) {
+		Messenger credit = null;
+		
+		return credit;
 		
 	}
 

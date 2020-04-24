@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import com.sn9tk.web.util.Credit;
 
 @Service
-public class GradeServiceImpl implements GradeService{
+public class GradeServiceImpl //해쉬맵
+implements GradeService{ //맵
 	private Grade[] grades;
 	private int count;
 	

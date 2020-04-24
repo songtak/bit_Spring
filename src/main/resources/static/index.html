@@ -78,19 +78,21 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="join_a" >join</a></li>
-      <li><a id="login_a" >login</a></li>
+      <li><a id="join_a" >관리자 등록</a></li>
+      <li><a id="login_a" >관리자 접속</a></li>
+       <li><a id="signup_a" >사용자 회원가입</a></li>
+      <li><a id="signin_a" >사용자 로그인</a></li>
     </ul>
   </nav>
   
   <article>
    <form action="#">
    	<label>ID </label> <br>
-   	<input id = "userid" type="text"> <br>
+   	<input id = "userid" type="text"/> <br>
    	<label>PASSWORD</label><br>
-   	<input id = "passwd"type="text"><br>
-   	<input id="login_button" type="button" value="로그인">
-   	<input id="cancel_button" type="button" value="취소">
+   	<input id = "passwd"type="text"/><br>
+   	<input id="login-button" type="button" value="로그인">
+   	<input id="cancel-button" type="button" value="취소">
 
    	
    </form>
@@ -114,6 +116,20 @@ $('#login_a')
 	e.preventDefault()
 	location.href="index.html"
 })
+$('#signup_a')
+    .css('cursor','pointer')
+    .click(e=>{
+	e.preventDefault()
+	location.href="user/signup.html"
+})
+$('#signin_a')
+    .css('cursor','pointer')
+    .click(e=>{
+	e.preventDefault()
+	location.href="user/signin.html"
+})
+
+
 $('#login_button').click(e =>{
 	e.preventDefault()
 $.ajax({
@@ -125,7 +141,7 @@ $.ajax({
 	contentType:'application/json',
 	success : d =>{
 		if(message === 'SUCCESS'){
-			location.href="grade/register.html"
+			location.href="lotto/register.html"
 		}else{
 			alert('다시 로그인 해주세요.')
 			location.href = "index.html"

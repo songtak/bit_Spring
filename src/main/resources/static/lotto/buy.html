@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Style the header */
+header {
+  background-color: #866;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #F1F1F1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+<body>
+<h2> 로또 구매 </h2>
+<section>
+  <nav>
+    <ul>
+    </ul>
+  </nav>
+  <article>
+   <form action="#">
+    <label>ID </label> <br>
+   	<input id = "userid" type="text"/> <br>
+   	<label>로또번호 입력(,로 분리해 주세요.)</label><br>
+   	<input id ="number" type="text"/> <br>
+   	<input id="register_button" type="button" value="자동 번호 확인">
+   	<input id="result_button" type="button" value="결과">
+   </form>
+      	<div id="result"></div>
+  </article>
+</section>
+<footer>
+  <p>Footer</p>
+</footer>
+<script>
+$('#register_button').click(e =>{
+	e.preventDefault() 
+		$.ajax({
+		url:'/lotto/buy',
+		type:'post',
+		data:JSON.stringify({
+			number: $('#number').val()
+		dataType:'json',
+		contentType:'application/json',
+		success: d=>{
+			if(){}
+		}
+			alert(d)
+			
+		},
+		error: (req, x, err)=>{
+			alert(req.status+"\n"+req.responseText+"\n"+err)
+		}
+	})
+})
+$('#result_button').click(e=>{
+	e.preventDefault()
+	$.ajax({
+		url : '/lotto/check/'+$('#userid').val(),
+		type : 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success : d => {
+			$('#result').html('<h3>학점 : '+d+'</h3>')
+		},
+		error : (req, x, err) =>{
+			alert(req.status+'\n'+req.responseText+'\n'+err)
+		}
+	})
+})
+
+</script>
+</body>
+</html>

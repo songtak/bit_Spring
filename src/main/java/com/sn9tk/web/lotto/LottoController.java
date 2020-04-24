@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.sn9tk.web.util.Messenger;
 
 @RestControllerAdvice
-@RequestMapping
+@RequestMapping("/lotto")
 public class LottoController {
 	@Autowired LottoService lottoService;
 	
-	@GetMapping("/register")
+	@GetMapping("/buy")
 	public Messenger buy(@RequestBody Lotto lotto) {
 		Messenger messenger = null;
 		return messenger;

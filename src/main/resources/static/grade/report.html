@@ -104,8 +104,14 @@ $.ajax({
 	}),
 	dataType:'json',
 	contentType:'application/json',
-    succes:(){},
-    error:(){}
+    succes:d=>{
+    	if(){
+    		
+    	}
+    	},
+		error: (r, x, e)=>{
+			alert(r.status)
+		}
 })
 
 $('#show-button').click(e => {

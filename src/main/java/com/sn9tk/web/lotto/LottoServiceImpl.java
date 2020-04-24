@@ -1,61 +1,52 @@
 package com.sn9tk.web.lotto;
 
-import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.sn9tk.web.user.User;
 import com.sn9tk.web.util.Check;
 
 @Service
 public class LottoServiceImpl implements LottoService{
-	private Lotto[] lottos;
-	private int count;
-	
+	private Map<String,Object> map;
 	public LottoServiceImpl() {
-		lottos = new Lotto[5];
-		count = 0;
+		map = new HashMap<>();
 	}
 
 	@Override
 	public void add(Lotto lotto) {
-		lottos[count] = lotto;
-		count++;
-	}
-
-	@Override
-	public Lotto detail(String userid) {
-		Lotto returnLotto = null;
-		switch(mat(userid)) {}
-		return returnLotto;
-	}
-
-	private int mat(String userid) {
-		return 0;
+		map.put(lotto.getUserid(), lotto);
 	}
 
 	@Override
 	public int count() {
-		return count;
+		return map.size();
 	}
+
+	
+	@Override
+	public Lotto detail(String userid) {
+		return (Lotto) map.get(userid);
+	}
+
+
 
 	@Override
 	public int lottoCheckResult(String userid) {
-		return 0;
+		int lottoChecking = 0;
+		return lottoChecking;
 	}
 
+	
 	@Override
-	public int lottoNumber() {
-		int lottoNumber = 0;
+	public int[] lottoNumber() {
 		int[] lotto = new int[6];
-        for(int i=0;  i<count; i++) {
-        	lotto[i] = (int)(Math.random()*45)+1;
-        	for(int j=0; j<i; j++) {
-        		if(lotto[i]==lotto[j])
-        			i-=1;
-        	}
-        	lottoNumber = lotto[i];
-        }
-		return lottoNumber;
+
+
+		return lotto;
 	}
+
 
 }
